@@ -1,45 +1,31 @@
-# Thorn Bird Books - Root Package Manager
-
-This is the root directory for the Thorn Bird Books platform. The project consists of multiple applications:
-
-## Applications
-
-- **backend/**: Node.js API server
-- **frontend/**: User-facing React application  
-- **admin/**: Admin dashboard React application
-
-## Quick Start Commands
-
-### Install all dependencies
-```bash
-# Install backend dependencies
-cd backend && npm install
-
-# Install frontend dependencies  
-cd frontend && npm install
-
-# Install admin dependencies
-cd admin && npm install
-```
-
-### Start all applications
-```bash
-# Start backend (in one terminal)
-cd backend && npm run dev
-
-# Start frontend (in another terminal) 
-cd frontend && npm start
-
-# Start admin (in another terminal)
-cd admin && npm start
-```
-
-## Development URLs
-
-- **Frontend**: http://localhost:3000
-- **Admin**: http://localhost:3001  
-- **Backend**: http://localhost:5000
-
-## Documentation
-
-See the main README.md for comprehensive setup and development instructions.
+{
+  "name": "thorn-bird-books",
+  "version": "1.0.0",
+  "description": "A comprehensive bookstore application with event management",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+  },
+  "keywords": ["bookstore", "events", "e-commerce", "react", "nodejs"],
+  "author": "Thorn Bird Books",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}
