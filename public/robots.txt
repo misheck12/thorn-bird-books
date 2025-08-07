@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Optimize crawl budget
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /account/
+
+# Important pages
+Allow: /books
+Allow: /events
+Allow: /about
+Allow: /contact
+
+# Sitemap
+Sitemap: https://thornbirdbooks.com/sitemap.xml
