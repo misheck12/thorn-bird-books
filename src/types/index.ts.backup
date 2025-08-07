@@ -1,0 +1,150 @@
+// User types
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: 'customer' | 'admin';
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Book types
+export interface Book {
+  id: string;
+  title: string;
+  author: string;
+  description: string;
+  price: number;
+  category: string;
+  isbn: string;
+  publisher: string;
+  publishedDate: Date;
+  language: string;
+  format: 'hardcover' | 'paperback' | 'ebook';
+  stockQuantity: number;
+  imageUrl: string;
+  rating: number;
+  reviewCount: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Cart types
+export interface CartItem {
+  id: string;
+  bookId: string;
+  book: Book;
+  quantity: number;
+  price: number;
+}
+
+export interface Cart {
+  id: string;
+  userId: string;
+  items: CartItem[];
+  totalAmount: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Order types
+export interface Order {
+  id: string;
+  userId: string;
+  items: OrderItem[];
+  totalAmount: number;
+  status: 'pending' | 'paid' | 'shipped' | 'delivered' | 'cancelled';
+  shippingAddress: Address;
+  paymentMethod: string;
+  paymentIntentId?: string;
+  trackingNumber?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface OrderItem {
+  id: string;
+  orderId: string;
+  bookId: string;
+  book: Book;
+  quantity: number;
+  price: number;
+}
+
+// Address types
+export interface Address {
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+}
+
+// Payment types
+export interface PaymentIntent {
+  id: string;
+  amount: number;
+  currency: string;
+  status: string;
+  clientSecret: string;
+}
+
+// Search types
+export interface SearchFilters {
+  category?: string;
+  author?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  format?: string;
+  language?: string;
+  publisher?: string;
+  rating?: number;
+  inStock?: boolean;
+}
+
+export interface SearchResult {
+  books: Book[];
+  totalCount: number;
+  currentPage: number;
+  totalPages: number;
+}
+
+// Email types
+export interface EmailTemplate {
+  subject: string;
+  html: string;
+  text?: string;
+}
+
+export interface EmailNotification {
+  to: string;
+  template: string;
+  data: Record<string, unknown>;
+}
+
+// API Response types
+export interface ApiResponse<T = unknown> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
+}
+}
+
+// Form types
+export interface LoginForm {
+  email: string;
+  password: string;
+}
+
+export interface RegisterForm {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface CheckoutForm {
+  shippingAddress: Address;
+  paymentMethod: 'stripe' | 'paypal';
+}
