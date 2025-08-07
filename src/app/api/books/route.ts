@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Book from '@/models/Book';
+import mockBooks from '@/lib/mockData';
 
 export async function GET(request: NextRequest) {
   try {
-    await dbConnect();
-
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '12');
@@ -19,50 +18,74 @@ export async function GET(request: NextRequest) {
     const order = searchParams.get('order') || 'desc';
     const featured = searchParams.get('featured');
 
-    // Build filter object
-    const filter: Record<string, unknown> = { isActive: true };
+    let books = [...mockBooks];
 
-    if (category) filter.category = category;
-    if (genre) filter.genre = genre;
-    if (format) filter.format = format;
-    if (featured === 'true') filter.featured = true;
-
-    if (minPrice || maxPrice) {
-      const priceFilter: Record<string, number> = {};
-      if (minPrice) priceFilter.$gte = parseFloat(minPrice);
-      if (maxPrice) priceFilter.$lte = parseFloat(maxPrice);
-      filter.price = priceFilter;
+    // Apply filters
+    if (category) {
+      books = books.filter(book => book.category === category);
     }
-
+    if (genre) {
+      books = books.filter(book => book.genre === genre);
+    }
+    if (format) {
+      books = books.filter(book => book.format === format);
+    }
+    if (featured === 'true') {
+      books = books.filter(book => book.featured);
+    }
+    if (minPrice) {
+      books = books.filter(book => book.price >= parseFloat(minPrice));
+    }
+    if (maxPrice) {
+      books = books.filter(book => book.price <= parseFloat(maxPrice));
+    }
     if (search) {
-      filter.$text = { $search: search };
+      const searchLower = search.toLowerCase();
+      books = books.filter(book => 
+        book.title.toLowerCase().includes(searchLower) ||
+        book.author.toLowerCase().includes(searchLower) ||
+        book.description.toLowerCase().includes(searchLower) ||
+        book.isbn.includes(search)
+      );
     }
 
-    // Build sort object
-    const sortObj: Record<string, 1 | -1 | { $meta: string }> = {};
-    if (search) {
-      sortObj.score = { $meta: 'textScore' };
-    }
-    sortObj[sort] = order === 'desc' ? -1 : 1;
+    // Apply sorting
+    books.sort((a, b) => {
+      let aVal, bVal;
+      switch (sort) {
+        case 'title':
+          aVal = a.title;
+          bVal = b.title;
+          break;
+        case 'price':
+          aVal = a.price;
+          bVal = b.price;
+          break;
+        case 'rating':
+          aVal = a.rating || 0;
+          bVal = b.rating || 0;
+          break;
+        default:
+          aVal = new Date(a.createdAt).getTime();
+          bVal = new Date(b.createdAt).getTime();
+      }
 
-    const skip = (page - 1) * limit;
+      if (typeof aVal === 'string' && typeof bVal === 'string') {
+        return order === 'desc' ? bVal.localeCompare(aVal) : aVal.localeCompare(bVal);
+      }
+      return order === 'desc' ? (bVal as number) - (aVal as number) : (aVal as number) - (bVal as number);
+    });
 
-    const [books, total] = await Promise.all([
-      Book.find(filter)
-        .select('-__v')
-        .sort(sortObj)
-        .skip(skip)
-        .limit(limit)
-        .lean(),
-      Book.countDocuments(filter)
-    ]);
-
+    // Apply pagination
+    const total = books.length;
     const totalPages = Math.ceil(total / limit);
+    const skip = (page - 1) * limit;
+    const paginatedBooks = books.slice(skip, skip + limit);
 
     return NextResponse.json({
       success: true,
       data: {
-        books,
+        books: paginatedBooks,
         pagination: {
           page,
           limit,
