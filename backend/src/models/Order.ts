@@ -5,7 +5,7 @@ interface IOrderDocument extends IOrder, Document {}
 
 const orderItemSchema = new Schema<IOrderItem>({
   bookId: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'Book',
     required: true,
   },
@@ -44,7 +44,7 @@ const addressSchema = new Schema({
 
 const orderSchema = new Schema<IOrderDocument>({
   userId: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true,
   },

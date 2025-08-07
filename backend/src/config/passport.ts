@@ -20,7 +20,7 @@ export const configurePassport = (): void => {
           }
           return done(null, false);
         } catch (error) {
-          return done(error, false);
+          return done(error as Error, false);
         }
       }
     )
@@ -82,7 +82,7 @@ export const configurePassport = (): void => {
             await user.save();
             return done(null, user);
           } catch (error) {
-            return done(error, null);
+            return done(error as Error, undefined);
           }
         }
       )
@@ -146,7 +146,7 @@ export const configurePassport = (): void => {
             await user.save();
             return done(null, user);
           } catch (error) {
-            return done(error, null);
+            return done(error as Error, undefined);
           }
         }
       )

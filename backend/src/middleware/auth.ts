@@ -4,7 +4,7 @@ import User from '../models/User';
 import { IUser } from '../types';
 
 interface AuthRequest extends Request {
-  user?: IUser;
+  user?: any; // Using any to avoid type conflicts with Mongoose Document
 }
 
 export const protect = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {

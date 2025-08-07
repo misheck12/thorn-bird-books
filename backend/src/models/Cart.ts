@@ -7,7 +7,7 @@ interface ICartDocument extends ICart, Document {
 
 const cartItemSchema = new Schema<ICartItem>({
   bookId: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'Book',
     required: true,
   },
@@ -25,7 +25,7 @@ const cartItemSchema = new Schema<ICartItem>({
 
 const cartSchema = new Schema<ICartDocument>({
   userId: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true,
     unique: true,

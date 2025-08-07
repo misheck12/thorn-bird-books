@@ -1,5 +1,4 @@
 export interface IUser {
-  _id?: string;
   email: string;
   password?: string;
   firstName: string;
@@ -35,7 +34,6 @@ export interface IUser {
 }
 
 export interface IBook {
-  _id?: string;
   title: string;
   author: string;
   isbn: string;
@@ -60,7 +58,6 @@ export interface IBook {
 }
 
 export interface ICart {
-  _id?: string;
   userId: string;
   items: ICartItem[];
   totalAmount: number;
@@ -76,7 +73,6 @@ export interface ICartItem {
 }
 
 export interface IOrder {
-  _id?: string;
   userId: string;
   items: IOrderItem[];
   totalAmount: number;
@@ -113,7 +109,6 @@ export interface IOrderItem {
 }
 
 export interface IEvent {
-  _id?: string;
   title: string;
   description: string;
   type: 'book_signing' | 'reading' | 'workshop' | 'discussion' | 'launch';
@@ -141,7 +136,6 @@ export interface IEvent {
 }
 
 export interface IEventRegistration {
-  _id?: string;
   eventId: string;
   userId: string;
   status: 'registered' | 'attended' | 'cancelled';
@@ -153,7 +147,6 @@ export interface IEventRegistration {
 }
 
 export interface IReview {
-  _id?: string;
   bookId: string;
   userId: string;
   rating: number;
@@ -167,7 +160,6 @@ export interface IReview {
 }
 
 export interface IWishlist {
-  _id?: string;
   userId: string;
   books: string[];
   createdAt?: Date;

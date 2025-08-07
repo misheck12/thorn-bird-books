@@ -5,12 +5,12 @@ interface IEventRegistrationDocument extends IEventRegistration, Document {}
 
 const eventRegistrationSchema = new Schema<IEventRegistrationDocument>({
   eventId: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'Event',
     required: true,
   },
   userId: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true,
   },
