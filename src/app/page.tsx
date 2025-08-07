@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import NewsletterSignup from '@/components/ui/NewsletterSignup';
 
 export default function Home() {
   return (
@@ -122,18 +123,7 @@ export default function Home() {
             <p className="text-xl text-blue-100 mb-8">
               Subscribe to our newsletter for book recommendations, exclusive offers, and event updates
             </p>
-            <div className="max-w-md mx-auto">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:ring-2 focus:ring-blue-300 focus:outline-none"
-                />
-                <button className="bg-white text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
-                  Subscribe
-                </button>
-              </div>
-            </div>
+            <NewsletterSignup />
           </div>
         </div>
       </section>
