@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Container,
   Typography,
+  Grid,
   Card,
   CardContent,
   CardMedia,
@@ -20,7 +21,6 @@ import {
   Skeleton,
   Alert,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import {
   ShoppingCart as CartIcon,
   Search as SearchIcon,
@@ -164,7 +164,7 @@ const Books: React.FC = () => {
         
         <Grid container spacing={2} alignItems="center">
           {/* Search */}
-          <Grid xs={12} md={4}>
+          <Grid item xs={12} md={4}>
             <TextField
               fullWidth
               label="Search books..."
@@ -177,7 +177,7 @@ const Books: React.FC = () => {
           </Grid>
 
           {/* Category Filter */}
-          <Grid xs={12} md={2}>
+          <Grid item xs={12} md={2}>
             <FormControl fullWidth>
               <InputLabel>Category</InputLabel>
               <Select
@@ -196,7 +196,7 @@ const Books: React.FC = () => {
           </Grid>
 
           {/* Sort */}
-          <Grid xs={12} md={2}>
+          <Grid item xs={12} md={2}>
             <FormControl fullWidth>
               <InputLabel>Sort By</InputLabel>
               <Select
@@ -213,7 +213,7 @@ const Books: React.FC = () => {
           </Grid>
 
           {/* Order */}
-          <Grid xs={12} md={2}>
+          <Grid item xs={12} md={2}>
             <FormControl fullWidth>
               <InputLabel>Order</InputLabel>
               <Select
@@ -228,7 +228,7 @@ const Books: React.FC = () => {
           </Grid>
 
           {/* Clear Filters */}
-          <Grid xs={12} md={2}>
+          <Grid item xs={12} md={2}>
             <Button
               variant="outlined"
               fullWidth
@@ -280,7 +280,7 @@ const Books: React.FC = () => {
         {isLoading ? (
           // Loading skeletons
           Array.from({ length: 12 }).map((_, index) => (
-            <Grid xs={12} sm={6} md={4} lg={3} key={index}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
               <Card>
                 <Skeleton variant="rectangular" height={250} />
                 <CardContent>
@@ -292,7 +292,7 @@ const Books: React.FC = () => {
             </Grid>
           ))
         ) : booksData?.books.length === 0 ? (
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <Paper sx={{ p: 4, textAlign: 'center' }}>
               <Typography variant="h6" gutterBottom>
                 No books found
@@ -304,7 +304,7 @@ const Books: React.FC = () => {
           </Grid>
         ) : (
           booksData?.books.map((book) => (
-            <Grid xs={12} sm={6} md={4} lg={3} key={book._id}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={book._id}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <CardMedia
                   component="img"

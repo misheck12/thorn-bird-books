@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import {
   Container,
   Typography,
+  Grid,
   Card,
   CardContent,
   CardMedia,
@@ -13,7 +14,6 @@ import {
   Chip,
   Alert,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import {
   Add as AddIcon,
   Remove as RemoveIcon,
@@ -137,7 +137,7 @@ const Cart: React.FC = () => {
 
       <Grid container spacing={4}>
         {/* Cart Items */}
-        <Grid xs={12} lg={8}>
+        <Grid item xs={12} lg={8}>
           <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
             <Typography variant="h6">
               Items in your cart
@@ -159,7 +159,7 @@ const Cart: React.FC = () => {
                 <CardContent>
                   <Grid container spacing={2} alignItems="center">
                     {/* Book Image */}
-                    <Grid xs={12} sm={3}>
+                    <Grid item xs={12} sm={3}>
                       <CardMedia
                         component="img"
                         image={book?.images?.[0] || '/placeholder-book.jpg'}
@@ -173,7 +173,7 @@ const Cart: React.FC = () => {
                     </Grid>
 
                     {/* Book Details */}
-                    <Grid xs={12} sm={5}>
+                    <Grid item xs={12} sm={5}>
                       <Typography variant="h6" gutterBottom>
                         {book?.title || 'Book Title'}
                       </Typography>
@@ -186,7 +186,7 @@ const Cart: React.FC = () => {
                     </Grid>
 
                     {/* Quantity Controls */}
-                    <Grid xs={12} sm={2}>
+                    <Grid item xs={12} sm={2}>
                       <Box display="flex" alignItems="center" justifyContent="center">
                         <IconButton
                           size="small"
@@ -215,7 +215,7 @@ const Cart: React.FC = () => {
                     </Grid>
 
                     {/* Price and Actions */}
-                    <Grid xs={12} sm={2}>
+                    <Grid item xs={12} sm={2}>
                       <Box textAlign="center">
                         <Typography variant="h6" color="primary">
                           {formatPrice(item.price * item.quantity)}
@@ -243,7 +243,7 @@ const Cart: React.FC = () => {
         </Grid>
 
         {/* Order Summary */}
-        <Grid xs={12} lg={4}>
+        <Grid item xs={12} lg={4}>
           <Paper sx={{ p: 3, position: 'sticky', top: 20 }}>
             <Typography variant="h6" gutterBottom>
               Order Summary

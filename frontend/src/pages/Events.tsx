@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Container,
   Typography,
+  Grid,
   Card,
   CardContent,
   CardMedia,
@@ -20,7 +21,6 @@ import {
   Avatar,
   Divider,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import {
   Event as EventIcon,
   LocationOn as LocationIcon,
@@ -166,7 +166,7 @@ const Events: React.FC = () => {
         
         <Grid container spacing={2} alignItems="center">
           {/* Search */}
-          <Grid xs={12} md={4}>
+          <Grid item xs={12} md={4}>
             <TextField
               fullWidth
               label="Search events..."
@@ -179,7 +179,7 @@ const Events: React.FC = () => {
           </Grid>
 
           {/* Event Type Filter */}
-          <Grid xs={12} md={2}>
+          <Grid item xs={12} md={2}>
             <FormControl fullWidth>
               <InputLabel>Event Type</InputLabel>
               <Select
@@ -198,7 +198,7 @@ const Events: React.FC = () => {
           </Grid>
 
           {/* City Filter */}
-          <Grid xs={12} md={2}>
+          <Grid item xs={12} md={2}>
             <TextField
               fullWidth
               label="City"
@@ -208,14 +208,14 @@ const Events: React.FC = () => {
           </Grid>
 
           {/* Free/Paid Filter */}
-          <Grid xs={12} md={2}>
+          <Grid item xs={12} md={2}>
             <FormControl fullWidth>
               <InputLabel>Price</InputLabel>
               <Select
                 value={filters.isFree === undefined ? '' : filters.isFree ? 'free' : 'paid'}
                 label="Price"
                 onChange={(e) => {
-                  const value = e.target.value;
+                  const value = e.target.value as string;
                   handleFilterChange('isFree', value === '' ? undefined : value === 'free');
                 }}
               >
@@ -227,7 +227,7 @@ const Events: React.FC = () => {
           </Grid>
 
           {/* Clear Filters */}
-          <Grid xs={12} md={2}>
+          <Grid item xs={12} md={2}>
             <Button
               variant="outlined"
               fullWidth
@@ -254,7 +254,7 @@ const Events: React.FC = () => {
         {isLoading ? (
           // Loading skeletons
           Array.from({ length: 6 }).map((_, index) => (
-            <Grid xs={12} md={6} lg={4} key={index}>
+            <Grid item xs={12} md={6} lg={4} key={index}>
               <Card>
                 <CardContent>
                   <Skeleton variant="text" height={40} />
@@ -266,7 +266,7 @@ const Events: React.FC = () => {
             </Grid>
           ))
         ) : eventsData?.events.length === 0 ? (
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <Paper sx={{ p: 4, textAlign: 'center' }}>
               <EventIcon sx={{ fontSize: 64, color: 'grey.400', mb: 2 }} />
               <Typography variant="h6" gutterBottom>
@@ -279,7 +279,7 @@ const Events: React.FC = () => {
           </Grid>
         ) : (
           eventsData?.events.map((event) => (
-            <Grid xs={12} md={6} lg={4} key={event._id}>
+            <Grid item xs={12} md={6} lg={4} key={event._id}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 {event.featuredImage && (
                   <CardMedia
