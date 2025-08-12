@@ -8,7 +8,7 @@ const PaymentForm = () => {
   const [currency, setCurrency] = useState('ZMW');
   const [message, setMessage] = useState('');
 
-  const handlePayment = async (e) => {
+  const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/payments/pay', {
@@ -19,7 +19,7 @@ const PaymentForm = () => {
       });
       setMessage(response.data.message || 'Payment successful!');
     } catch (error) {
-      setMessage(error.response?.data?.message || 'Payment failed.');
+      setMessage((error as any).response?.data?.message || 'Payment failed.');
     }
   };
 

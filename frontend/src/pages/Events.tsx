@@ -20,7 +20,7 @@ import {
   Avatar,
   Divider,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import {
   Event as EventIcon,
   LocationOn as LocationIcon,
@@ -216,7 +216,7 @@ const Events: React.FC = () => {
                 label="Price"
                 onChange={(e) => {
                   const value = e.target.value;
-                  handleFilterChange('isFree', value === '' ? undefined : value === 'free');
+                  handleFilterChange('isFree', value === '' ? undefined : (value === 'free'));
                 }}
               >
                 <MenuItem value="">All Events</MenuItem>

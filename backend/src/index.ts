@@ -56,7 +56,7 @@ app.use('/api/', limiter);
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-app.use(compression());
+app.use(compression() as any);
 
 // Logging
 if (process.env.NODE_ENV !== 'test') {
@@ -64,7 +64,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 // Passport middleware
-app.use(passport.initialize());
+app.use(passport.initialize() as any);
 
 // Swagger documentation
 const swaggerOptions = {
@@ -100,7 +100,7 @@ const swaggerOptions = {
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api-docs', swaggerUi.serve as any, swaggerUi.setup(swaggerSpec) as any);
 
 // Health check
 app.get('/health', (req, res) => {
