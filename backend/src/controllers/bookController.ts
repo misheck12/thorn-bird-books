@@ -232,3 +232,22 @@ export const getAuthors = async (req: Request, res: Response, next: NextFunction
     next(error);
   }
 };
+
+export const getBooks = async (req: Request, res: Response) => {
+  try {
+    const { title, author, category, minPrice, maxPrice } = req.query;
+
+    const query: any = {};
+
+    if (title) query.title = { $regex: title, $options: 'i' };
+    if (author) query.author = { $regex: author, $options: 'i' };
+    if (category) query.category = category;
+    if (minPrice) query.price = { ...query.price, $gte: parseFloat(minPrice as string) };
+    if (maxPrice) query.price = { ...query.price, $lte: parseFloat(maxPrice as string) };
+
+    const books = await Book.find(query);
+    res.status(200).json({ success: true, books });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

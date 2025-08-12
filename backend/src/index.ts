@@ -22,6 +22,7 @@ import cartRoutes from './routes/cartRoutes';
 import orderRoutes from './routes/orderRoutes';
 import eventRoutes from './routes/eventRoutes';
 import adminRoutes from './routes/adminRoutes';
+import paymentRoutes from './routes/paymentRoutes';
 
 // Load environment variables
 dotenv.config();
@@ -118,6 +119,7 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // Serve uploaded files
 app.use('/uploads', express.static('uploads'));

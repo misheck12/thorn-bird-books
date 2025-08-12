@@ -1,4 +1,5 @@
 import React from 'react';
+import BookSearch from '../components/BookSearch';
 
 const BooksPage = () => (
   <div className="section">
@@ -9,6 +10,7 @@ const BooksPage = () => (
       <p className="text-center text-gray-600">
         Browse our collection of books with filtering and cart functionality.
       </p>
+      <BookSearch />
     </div>
   </div>
 );

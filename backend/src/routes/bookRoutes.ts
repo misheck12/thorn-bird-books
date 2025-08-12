@@ -9,6 +9,7 @@ import {
   searchBooks,
   getCategories,
   getAuthors,
+  getBooks,
 } from '../controllers/bookController';
 
 const router = express.Router();
@@ -123,7 +124,7 @@ const router = express.Router();
  *                     hasPrev:
  *                       type: boolean
  */
-router.get('/', getAllBooks);
+router.get('/', getBooks);
 
 /**
  * @swagger

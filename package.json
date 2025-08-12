@@ -18,14 +18,26 @@
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down"
   },
-  "keywords": ["bookstore", "events", "e-commerce", "react", "nodejs"],
+  "keywords": [
+    "bookstore",
+    "events",
+    "e-commerce",
+    "react",
+    "nodejs"
+  ],
   "author": "Thorn Bird Books",
   "license": "MIT",
   "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.2.0",
     "concurrently": "^8.2.2"
   },
   "workspaces": [
     "frontend",
     "backend"
-  ]
+  ],
+  "dependencies": {
+    "express": "^5.1.0",
+    "stripe": "^18.4.0"
+  }
 }
