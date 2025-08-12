@@ -11,6 +11,8 @@ import {
   getAuthors,
   getBooks,
 } from '../controllers/bookController';
+import { cacheMiddleware } from '../services/cacheService';
+import { trackAction } from '../services/analyticsService';
 
 const router = express.Router();
 
@@ -124,7 +126,7 @@ const router = express.Router();
  *                     hasPrev:
  *                       type: boolean
  */
-router.get('/', getBooks);
+router.get('/', cacheMiddleware(1800, 'books'), getBooks); // Cache for 30 minutes
 
 /**
  * @swagger
@@ -143,7 +145,7 @@ router.get('/', getBooks);
  *       200:
  *         description: Featured books retrieved successfully
  */
-router.get('/featured', getFeaturedBooks);
+router.get('/featured', cacheMiddleware(3600, 'books'), getFeaturedBooks); // Cache for 1 hour
 
 /**
  * @swagger
@@ -161,7 +163,7 @@ router.get('/featured', getFeaturedBooks);
  *       200:
  *         description: New arrivals retrieved successfully
  */
-router.get('/new-arrivals', getNewArrivals);
+router.get('/new-arrivals', cacheMiddleware(1800, 'books'), getNewArrivals); // Cache for 30 minutes
 
 /**
  * @swagger
@@ -179,7 +181,7 @@ router.get('/new-arrivals', getNewArrivals);
  *       200:
  *         description: Best sellers retrieved successfully
  */
-router.get('/best-sellers', getBestSellers);
+router.get('/best-sellers', cacheMiddleware(1800, 'books'), getBestSellers); // Cache for 30 minutes
 
 /**
  * @swagger
@@ -210,7 +212,7 @@ router.get('/best-sellers', getBestSellers);
  *       400:
  *         description: Search query is required
  */
-router.get('/search', searchBooks);
+router.get('/search', trackAction('book_search'), searchBooks);
 
 /**
  * @swagger
@@ -222,7 +224,7 @@ router.get('/search', searchBooks);
  *       200:
  *         description: Categories retrieved successfully
  */
-router.get('/categories', getCategories);
+router.get('/categories', cacheMiddleware(7200, 'books'), getCategories); // Cache for 2 hours
 
 /**
  * @swagger
@@ -234,7 +236,7 @@ router.get('/categories', getCategories);
  *       200:
  *         description: Authors retrieved successfully
  */
-router.get('/authors', getAuthors);
+router.get('/authors', cacheMiddleware(7200, 'books'), getAuthors); // Cache for 2 hours
 
 /**
  * @swagger
@@ -263,7 +265,7 @@ router.get('/authors', getAuthors);
  *       200:
  *         description: Books in category retrieved successfully
  */
-router.get('/category/:category', getBooksByCategory);
+router.get('/category/:category', cacheMiddleware(1800, 'books'), getBooksByCategory); // Cache for 30 minutes
 
 /**
  * @swagger
@@ -295,6 +297,6 @@ router.get('/category/:category', getBooksByCategory);
  *       404:
  *         description: Book not found
  */
-router.get('/:id', getBookById);
+router.get('/:id', cacheMiddleware(3600, 'books'), trackAction('book_view'), getBookById); // Cache for 1 hour
 
 export default router;

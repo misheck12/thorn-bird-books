@@ -3,7 +3,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import compression from 'compression';
-import rateLimit from 'express-rate-limit';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import dotenv from 'dotenv';
@@ -13,6 +12,8 @@ import { connectDB } from './config/database';
 import { configurePassport } from './config/passport';
 import { errorHandler } from './middleware/errorHandler';
 import { notFound } from './middleware/notFound';
+import { laxRateLimit, authRateLimit, paymentRateLimit } from './middleware/rateLimiter';
+import { analyticsMiddleware } from './services/analyticsService';
 
 // Route imports
 import authRoutes from './routes/authRoutes';
@@ -23,6 +24,7 @@ import orderRoutes from './routes/orderRoutes';
 import eventRoutes from './routes/eventRoutes';
 import adminRoutes from './routes/adminRoutes';
 import paymentRoutes from './routes/paymentRoutes';
+import analyticsRoutes from './routes/analyticsRoutes';
 
 // Load environment variables
 dotenv.config();
@@ -45,13 +47,10 @@ app.use(cors({
   credentials: true,
 }));
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 minutes
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100'), // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.',
-});
-app.use('/api/', limiter);
+// Rate limiting with different tiers
+app.use('/api/auth', authRateLimit);
+app.use('/api/payments', paymentRateLimit);
+app.use('/api/', laxRateLimit);
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
@@ -65,6 +64,9 @@ if (process.env.NODE_ENV !== 'test') {
 
 // Passport middleware
 app.use(passport.initialize() as any);
+
+// Analytics middleware for tracking
+app.use(analyticsMiddleware);
 
 // Swagger documentation
 const swaggerOptions = {
@@ -120,6 +122,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 // Serve uploaded files
 app.use('/uploads', express.static('uploads'));

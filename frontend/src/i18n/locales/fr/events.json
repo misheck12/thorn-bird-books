@@ -1,0 +1,17 @@
+{
+  "home": "Home",
+  "about": "About",
+  "books": "Books",
+  "events": "Events",
+  "blog": "Blog",
+  "contact": "Contact",
+  "cart": "Cart",
+  "profile": "Profile",
+  "login": "Login",
+  "register": "Register",
+  "logout": "Logout",
+  "dashboard": "Dashboard",
+  "menu": "Menu",
+  "search": "Search books, authors, events...",
+  "searchPlaceholder": "What are you looking for?"
+}
