@@ -9,6 +9,7 @@ import Navbar from './components/Layout/Navbar';
 import Footer from './components/Layout/Footer';
 import Home from './pages/Home';
 import Books from './pages/Books';
+import Events from './pages/Events';
 import BookDetail from './pages/BookDetail';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
@@ -65,6 +66,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/books" element={<Books />} />
                 <Route path="/books/:id" element={<BookDetail />} />
+                <Route path="/events" element={<Events />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route

@@ -129,6 +129,9 @@ const Navbar: React.FC = () => {
           <Button color="inherit" component={Link} to="/books">
             Books
           </Button>
+          <Button color="inherit" component={Link} to="/events">
+            Events
+          </Button>
 
           {isAuthenticated ? (
             <>
