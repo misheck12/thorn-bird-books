@@ -1,0 +1,17 @@
+{
+  "home": "Inicio",
+  "about": "Acerca de",
+  "books": "Libros",
+  "events": "Eventos",
+  "blog": "Blog",
+  "contact": "Contacto",
+  "cart": "Carrito",
+  "profile": "Perfil",
+  "login": "Iniciar sesión",
+  "register": "Registrarse",
+  "logout": "Cerrar sesión",
+  "dashboard": "Panel",
+  "menu": "Menú",
+  "search": "Buscar libros, autores, eventos...",
+  "searchPlaceholder": "¿Qué estás buscando?"
+}
